@@ -31,7 +31,7 @@
                 <form action="{{ url('dasboard/users') }}" method="GET">
                     <div class="col-lg-4">
                         <div class="input-group">
-                            <span class="input-group-addon">Email</span>
+                            <span class="input-group-addon">Email</span> &nbsp;&nbsp;
                             <input type="text" class="form-control"
                                 value="{{ isset($search['email']) ? $search['email'] : '' }}" name="email" />
                             <button type="submit" class="btn btn-primary">Search</button>
