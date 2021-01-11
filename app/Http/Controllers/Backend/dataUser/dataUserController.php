@@ -28,8 +28,7 @@ class dataUserController extends Controller
 
     public function store (Request $request) {
         $this->dataUser->storeUsers($request);
-        
-        return redirect()->route('table-dataUsers')->with(['sukses' => 'Terima Kasih Sudah Mendaftar']);
+        return redirect()->route('table-dataUsers')->with(['sukses' => 'Anda Berhasil Mendaftar']);
     }
 
     public function edit ($id)
