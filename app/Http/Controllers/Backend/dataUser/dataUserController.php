@@ -1,51 +1,79 @@
 <?php
 
-namespace App\Http\Controllers\backend\dataUser;
+namespace App\Http\Controllers\Backend\dataUser;
 
-use App\Http\Models\dataUsers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\backend\dataUser\dataUserRepository;
+use App\Http\Controllers\Backend\dataUser\dataUserRepository;
+use App\Http\Requests\StoreDataUsersRequest;
+use App\Http\Requests\UpdateDataUsersRequest;
 
 class dataUserController extends Controller
 {
     protected $dataUser;
 
-    public function __construct(dataUserRepository $dataUser)
+    public function __construct()
     {
-        $this->dataUser = $dataUser;
+        $this->dataUser = new dataUserRepository();
     }
 
-    public function index (Request $request) {
+    //index
+    public function indexUser(Request $request) {
         $search = $request->only(['email']);
         $dataUser = $this->dataUser->getAllUser($search);
         return view('backend.Users.indexUsers', compact('dataUser','search'));
     }
 
-    public function create () {
+    //create
+    public function createUser() 
+    {
         return view('backend.Users.createUsers');
     }
 
-    public function store (Request $request) {
-        $this->dataUser->storeUsers($request);
-        return redirect()->route('table-dataUsers')->with(['sukses' => 'Anda Berhasil Mendaftar']);
+    public function storeUser(StoreDataUsersRequest $request) 
+    {
+        $data  = $this->dataUser->storeUser($request);
+
+        if($data['status']) {
+            return redirect()->route('table-dataUsers')->with(['sukses' => $data
+            ['message']]);
+        }else{
+            return redirect()->route('table-dataUsers')->with(['gagal' => $data
+            ['message']]);
+        }
     }
 
-    public function edit ($id)
+    //update
+    public function editUser($id)
     {
-        $EditdataUser = $this->dataUser->editUser($id);
+        $EditdataUser = $this->dataUser->findDataUserById($id);
         return view('backend.Users.editUsers', compact('EditdataUser'));
     }
 
-    public function update(Request $request, dataUsers $dataUsers)
-    {
-        $this->dataUser->updateUser($request, $dataUsers);
-        return redirect()->route('table-dataUsers')->with(['sukses' => 'Data Berhasil Di Edit']);
+    public function updateUser(UpdateDataUsersRequest $request, $id) 
+    
+    {    
+        $data = $this->dataUser->updateUser($request, $id);
+        if($data['status']) {
+            return redirect()->route('table-dataUsers')->with(['sukses' => $data
+            ['message']]);
+        }else {
+            return redirect()->route('table-dataUsers')->with(['gagal' => $data
+            ['message']]);
+        }
     }
 
-    public function destroy($id)
+    //delete
+    public function destroyUser($id)
     {
-        $this->dataUser->destroydUsers($id);
-        return redirect()->route('table-dataUsers')->with(['sukses' => 'Data Berhasil Di Delete']);
+        $data = $this->dataUser->destroyUser($id);
+
+        if($data['status']) {
+            return redirect()->route('table-dataUsers')->with(['sukses' => $data
+            ['message']]);
+        } else {
+            return redirect()->route('table-dataUsers')->with(['gagal' => $data
+            ['message']]);
+        }
     }
 }

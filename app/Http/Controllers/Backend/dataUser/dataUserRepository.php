@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\backend\dataUser;
+namespace App\Http\Controllers\Backend\dataUser;
 
 use App\Http\Models\dataUsers;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 
 class dataUserRepository
 {   
-    //
-    public function getAllUser ($search = []){
+    //index
+    public function getAllUser($search = [])
+    {
         $data = dataUsers::with([]);
         
         if(isset($search['email'])){
@@ -18,55 +17,80 @@ class dataUserRepository
         }
         return $data->get();
     }
-    
-    //
-    public function storeUsers (Request $request)
-    {
-        Validator::make($request->all(),
-        [
-            'nama' => 'required|min:2',
-            'umur' => 'required|min:1',
-            'alamat' => 'required|min:4',
-            'email' => 'required|unique:data_users,email'
-        ])->validate();
 
-        dataUsers::create([
-            'nama'    =>  $request->nama,
-            'umur'    =>  $request->umur,
-            'alamat'  =>  $request->alamat,
-            'email'   =>  $request->email,  
-        ]);
+    //create
+    public function storeUser(Request $request)
+    {
+        $hasil = [
+            'status' => false,
+            'message' => ''
+        ];
+
+        try {
+            $reload = new dataUsers();
+            $reload->nama = $request->nama;
+            $reload->umur = $request->umur;
+            $reload->alamat = $request->alamat;
+            $reload->email = $request->email;
+            $reload->save();
+            $hasil['status'] = true;
+            $hasil['message'] = 'Data Sukses Di Tambahkan';
+            return $hasil;
+        } catch (\Exception $exception) {
+            $hasil['message'] = 'function error -> ' . $exception->getMessage();
+            return $hasil;
+        }
     }
-    
-    //
-    public function editUser($id){
+
+    //update
+    public function findDataUserById($id)
+    {
         return dataUsers::with([])->find($id);
     }
-
-    public function updateUser (Request $request, dataUsers $dataUsers)
+    public function updateUser($request, $id)
     {
-        Validator::make($request->all(),
-        [
-            'nama' => 'required|min:2',
-            'umur' => 'required|min:1',
-            'alamat' => 'required|min:4',
-            'email' => 'required|min:5'
-        ])->validate();
+        // find data detail user
+        $dataUser = $this->findDataUserById($id);
 
-        $dataUsers = dataUsers::findOrFail($dataUsers->id);
-
-        $dataUsers->update([
-            'nama'    =>  $request->nama,
-            'umur'    =>  $request->umur,
-            'alamat'  =>  $request->alamat,
-            'email'   =>  $request->email,  
-        ]);
+        $hasil = [
+            'status' => false,
+            'message' => ''
+        ];
+        
+        try {
+            $dataUser->nama     = $request->nama;
+            $dataUser->umur     = $request->umur;
+            $dataUser->alamat   = $request->alamat;
+            $dataUser->email    = $request->email;
+            $dataUser->save();
+            $hasil['status']   = true;
+            $hasil['message']  = 'Data Sukses Di Update';
+            return $hasil;
+        } catch (\Exception $exception) {
+            $hasil['message'] = 'function error -> ' . $exception->getMessage();
+            return $hasil;
+        }
     }
 
-    //
-    public function destroydUsers ($id) 
+    //delete
+    public function destroyUser($id)
     {
-        $dataUser = dataUsers::find($id);
-        $dataUser->delete();
+        $dataUser = $this->findDataUserById($id);
+        $hasil = [
+            'status' => false,
+            'message' => ''
+        ];
+        try {
+            // dia akan mendelete ketika user id nya ada
+            // if
+            $dataUser->delete();
+            $hasil['status'] = true;
+            $hasil['message'] = 'Data Sukses Di Delete';
+            // else data user data user tidak di temukan
+            return $hasil;
+        } catch (\Exception $exception) {
+            $hasil['message'] = 'function error => ' . $exception->getMessage();
+            return $hasil;
+        }
     }
 }

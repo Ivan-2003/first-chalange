@@ -16,11 +16,11 @@ Route::get('/', function () {
 });
 
 Route::prefix('dasboard')->group(function(){
-    Route::get('admin', 'backend\admin\adminController@index')->name('home-admin');
-    Route::get('users', 'backend\dataUser\dataUserController@index')->name('table-dataUsers');
-    Route::get('create-users', 'backend\dataUser\dataUserController@create')->name('users-create');
-    Route::post('store-users', 'backend\dataUser\dataUserController@store')->name('users-store');
-    Route::get('edit-users/{dataUsers}','backend\dataUser\dataUserController@edit')->name('users-edit');
-    Route::post('update-users/{dataUsers}', 'backend\dataUser\dataUserController@update')->name('users-update');
-    Route::delete('delete-users/{id}', 'backend\dataUser\dataUserController@destroy')->name('users-delete');
+    Route::get('admin', 'backend\admin\adminController@indexUser')->name('home-admin');
+    Route::get('users', 'backend\dataUser\dataUserController@indexUser')->name('table-dataUsers');
+    Route::get('create-users', 'backend\dataUser\dataUserController@createUser')->name('users-create');
+    Route::post('store-users', 'backend\dataUser\dataUserController@storeUser')->name('users-store');
+    Route::get('edit-users/{dataUser}','backend\dataUser\dataUserController@editUser')->name('users-edit');
+    Route::post('update-users/{dataUser}', 'backend\dataUser\dataUserController@updateUser')->name('users-update');
+    Route::delete('delete-users/{id}', 'backend\dataUser\dataUserController@destroyUser')->name('users-delete');
 });

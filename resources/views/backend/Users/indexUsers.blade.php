@@ -6,14 +6,14 @@
         <a href="{{ route('users-create') }}" class="btn btn-primary" style="border-radius: 5rem">Tambah User</a>
         <br>
         <br>
-        @if (session()->has('validasi'))
+        {{-- @if (session()->has('validasi'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session()->get('validasi') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-        @endif
+        @endif --}}
         @if (Session::has('sukses'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <p>{{ Session::get('sukses') }}</p>
@@ -22,6 +22,15 @@
                 </button>
             </div>
         @endif
+        @if (Session::has('gagal'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p>{{ Session::get('gagal') }}</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
 
         <div class="card">
             <div class="card-header">

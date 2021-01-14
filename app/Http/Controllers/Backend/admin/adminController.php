@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 class adminController extends Controller
 {
-    public function index () {
+    public function indexUser() {
         $users = dataUsers::all();
         return view('backend.layouts.master', compact('users'));
     }
