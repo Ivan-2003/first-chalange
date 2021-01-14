@@ -6,14 +6,6 @@
         <a href="{{ route('users-create') }}" class="btn btn-primary" style="border-radius: 5rem">Tambah User</a>
         <br>
         <br>
-        {{-- @if (session()->has('validasi'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session()->get('validasi') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif --}}
         @if (Session::has('sukses'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <p>{{ Session::get('sukses') }}</p>
