@@ -24,10 +24,12 @@ class StoreDataUsersRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama'      => 'required|min:2',
-            'umur'      => 'required|min:1',
-            'alamat'    => 'required|min:4',
-            'email'     => 'required|unique:data_users,email'
+            'nama'          => 'required|min:2',
+            'country_code'  => 'required|min:2',
+            'phone'         => 'required|min:10',
+            'umur'          => 'required|min:1',
+            'alamat'        => 'required|min:4',
+            'email'         => 'required|unique:data_users,email'
         ];
     }
 }

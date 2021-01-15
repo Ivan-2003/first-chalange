@@ -28,10 +28,12 @@ class dataUserRepository
 
         try {
             $reload = new dataUsers();
-            $reload->nama = $request->nama;
-            $reload->umur = $request->umur;
-            $reload->alamat = $request->alamat;
-            $reload->email = $request->email;
+            $reload->nama           = $request->nama;
+            $reload->country_code   = $request->country_code;
+            $reload->phone          = $request->phone;
+            $reload->umur           = $request->umur;
+            $reload->alamat         = $request->alamat;
+            $reload->email          = $request->email;
             $reload->save();
             $hasil['status'] = true;
             $hasil['message'] = 'Data Sukses Di Tambahkan';
@@ -58,10 +60,12 @@ class dataUserRepository
         ];
         
         try {
-            $dataUser->nama     = $request->nama;
-            $dataUser->umur     = $request->umur;
-            $dataUser->alamat   = $request->alamat;
-            $dataUser->email    = $request->email;
+            $dataUser->nama             = $request->nama;
+            $dataUser->country_code     = $request->country_code;
+            $dataUser->phone            = $request->phone;
+            $dataUser->umur             = $request->umur;
+            $dataUser->alamat           = $request->alamat;
+            $dataUser->email            = $request->email;
             $dataUser->save();
             $hasil['status']   = true;
             $hasil['message']  = 'Data Sukses Di Update';
@@ -86,7 +90,7 @@ class dataUserRepository
             $dataUser->delete();
             $hasil['status'] = true;
             $hasil['message'] = 'Data Sukses Di Delete';
-            // else data user data user tidak di temukan
+            // else data user tidak di temukan
             return $hasil;
         } catch (\Exception $exception) {
             $hasil['message'] = 'function error => ' . $exception->getMessage();

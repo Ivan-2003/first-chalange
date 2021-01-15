@@ -45,6 +45,7 @@
                         <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Nama</th>
+                            <th scope="col">Phone</th>
                             <th scope="col">Umur</th>
                             <th scope="col">Alamat</th>
                             <th scope="col">Email</th>
@@ -57,6 +58,7 @@
                                 <tr>
                                     <td>{{ $d->id }}</td>
                                     <td>{{ $d->nama }}</td>
+                                    <td>{{ $d->FullName }}</td>
                                     <td>{{ $d->umur }}</td>
                                     <td>{{ $d->alamat }}</td>
                                     <td>{{ $d->email }}</td>

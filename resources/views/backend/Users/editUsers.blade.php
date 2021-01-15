@@ -33,6 +33,23 @@
                         <strong>{{ $errors->first('nama') }}</strong>
                     </span>
                 @endif
+            </div><div class="form-group">
+                <label for="country_code"><strong>Country Kode</strong></label>
+                <input type="text" class="form-control" name="country_code" value="{{ $EditdataUser->country_code }}">
+                @if ($errors->has('country_code'))
+                    <span class="help-block text-danger">
+                        <strong>{{ $errors->first('country_code') }}</strong>
+                    </span>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="phone"><strong>Phone</strong></label>
+                <input type="text" class="form-control" name="phone" value="{{ $EditdataUser->phone }}">
+                @if ($errors->has('phone'))
+                    <span class="help-block text-danger">
+                        <strong>{{ $errors->first('phone') }}</strong>
+                    </span>
+                @endif
             </div>
             <div class="form-group">
                 <label for="umur"><strong>Umur</strong></label>
