@@ -32,13 +32,13 @@ class dataUserController extends Controller
 
     public function storeUser(StoreDataUsersRequest $request) 
     {
-        $data  = $this->dataUser->storeUser($request);
+        $StoreUser  = $this->dataUser->storeUser($request);
 
-        if($data['status']) {
-            return redirect()->route('table-dataUsers')->with(['sukses' => $data
+        if($StoreUser['status']) {
+            return redirect()->route('users-create')->with(['sukses' => $StoreUser
             ['message']]);
         }else{
-            return redirect()->route('table-dataUsers')->with(['gagal' => $data
+            return redirect()->route('users-create')->with(['gagal' => $StoreUser
             ['message']]);
         }
     }
@@ -53,12 +53,12 @@ class dataUserController extends Controller
     public function updateUser(UpdateDataUsersRequest $request, $id) 
     
     {    
-        $data = $this->dataUser->updateUser($request, $id);
-        if($data['status']) {
-            return redirect()->route('table-dataUsers')->with(['sukses' => $data
+        $editUser = $this->dataUser->updateUser($request, $id);
+        if($editUser['status']) {
+            return redirect()->route('table-dataUsers')->with(['sukses' => $editUser
             ['message']]);
         }else {
-            return redirect()->route('table-dataUsers')->with(['gagal' => $data
+            return redirect()->route('table-dataUsers')->with(['gagal' => $editUser
             ['message']]);
         }
     }
@@ -66,13 +66,13 @@ class dataUserController extends Controller
     //delete
     public function destroyUser($id)
     {
-        $data = $this->dataUser->destroyUser($id);
+        $destroyUser = $this->dataUser->destroyUser($id);
 
-        if($data['status']) {
-            return redirect()->route('table-dataUsers')->with(['sukses' => $data
+        if($destroyUser['status']) {
+            return redirect()->route('table-dataUsers')->with(['sukses' => $destroyUser
             ['message']]);
         } else {
-            return redirect()->route('table-dataUsers')->with(['gagal' => $data
+            return redirect()->route('table-dataUsers')->with(['gagal' => $destroyUser
             ['message']]);
         }
     }

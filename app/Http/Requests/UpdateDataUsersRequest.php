@@ -25,7 +25,7 @@ class UpdateDataUsersRequest extends FormRequest
     {
         return [
             'nama'          => 'required|min:2',
-            'country_code'  => 'required|min:2',
+            'country_code'  => 'required|max:2',
             'phone'         => 'required|min:10',
             'umur'          => 'required|min:1',
             'alamat'        => 'required|min:4',
