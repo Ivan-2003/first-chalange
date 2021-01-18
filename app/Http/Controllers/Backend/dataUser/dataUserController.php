@@ -18,10 +18,12 @@ class dataUserController extends Controller
     }
 
     //index
-    public function indexUser(Request $request) {
-        $search = $request->only(['email']);
-        $dataUser = $this->dataUser->getAllUser($search);
-        return view('backend.Users.indexUsers', compact('dataUser','search'));
+    public function indexUser(Request $request){
+        $filters    = $request->only([
+            'nama', 'phone', 'umur', 'alamat','email'
+        ]);
+        $dataUser  = $this->dataUser->getAllUser($filters);
+        return view('backend.Users.indexUsers', compact('dataUser','filters'));
     }
 
     //create

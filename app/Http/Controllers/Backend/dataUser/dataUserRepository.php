@@ -7,15 +7,32 @@ use Illuminate\Http\Request;
 
 class dataUserRepository
 {   
-    //index
-    public function getAllUser($search = [])
-    {
-        $data = dataUsers::with([]);
+
+    public function getAllUser($filters = [], $paginate = 0){
         
-        if(isset($search['email'])){
-            $data   =   $data->where('email', $search['email']);
+        $data = dataUsers::with([]);
+
+        if($filters['nama']){
+            $data  = $data->where('nama','like','%' . $filters['nama'] . '%');
         }
-        return $data->get();
+
+        if($filters['phone']){
+            $data  = $data->where('phone','like','%' . $filters['phone'] . '%');
+        }
+
+        if($filters['umur']){
+            $data  = $data->where('umur','like','%' . $filters['umur'] . '%');
+        }
+
+        if($filters['alamat']){
+            $data  = $data->where('alamat','like','%' . $filters['alamat'] . '%');
+        }
+
+        if($filters['email']){
+            $data  = $data->where('email','like','%' . $filters['email'] . '%');
+        }
+
+        return $data->paginate(5);
     }
 
     //create
@@ -28,15 +45,7 @@ class dataUserRepository
 
         try {
 
-            if(!$request){
-                $hasil['message'] = 'parameter request di perlukan';
-                return $hasil;
-            }
             $reload = new dataUsers();
-            if(!$reload){
-                $hasil['message'] = 'user tidak di temukan';
-                return $hasil;
-            }
             $reload->nama           = $request->nama;
             $reload->country_code   = $request->country_code;
             $reload->phone          = $request->phone;
@@ -48,7 +57,8 @@ class dataUserRepository
             $hasil['message'] = 'Data Sukses Di Tambahkan';
             return $hasil;
         } catch (\Exception $exception) {
-            $hasil['message'] = 'Data error -> ' . $exception->getMessage();
+            
+            $hasil['message'] = 'Data error -> ' . $e->getCode()  . $exception->getMessage();
             return $hasil;
         }
     }
@@ -96,7 +106,6 @@ class dataUserRepository
     //delete
     public function destroyUser($id)
     {
-        $dataUser = $this->findDataUserById($id);
         $hasil = [
             'status' => false,
             'message' => ''
@@ -107,11 +116,12 @@ class dataUserRepository
                 $hasil['message'] = 'parameter id di perlukan';
                 return $hasil;
             }
-            $dataUser->delete();
+            $dataUser = $this->findDataUserById($id);
             if(!$dataUser){
                 $hasil['message'] = 'user tidak di temukan';
                 return $hasil;
             }
+            $dataUser->delete();
             $hasil['status'] = true;
             $hasil['message'] = 'Data Sukses Di Delete';
             return $hasil;

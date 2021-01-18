@@ -22,13 +22,11 @@
                 </button>
             </div>
         @endif
-
-
         <div class="card">
             <div class="card-header">
                 <strong class="card-title">Data Table</strong>
             </div>
-            <div class="card-body">
+            {{-- <div class="card-body">
                 <form action="{{ url('dasboard/users') }}" method="GET">
                     <div class="col-lg-4">
                         <div class="input-group">
@@ -38,6 +36,41 @@
                             <button type="submit" class="btn btn-primary">Search</button>
                         </div>
                     </div>
+                </form> --}}
+                <form action="{{ url('dasboard/users') }}" method="GET">
+                <div class="row gutter-10">
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon">Nama</span>
+                            <input type="text" class="form-control" value="{{ isset($filters['nama']) ? $filters['nama'] : "" }}" name="nama"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon">Phone</span>
+                            <input type="text" class="form-control" value="{{ isset($filters['phone']) ? $filters['phone'] : "" }}" name="phone"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon">Umur</span>
+                            <input type="text" class="form-control" value="{{ isset($filters['umur']) ? $filters['umur'] : "" }}" name="umur"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon">Alamat</span>
+                            <input type="text" class="form-control" value="{{ isset($filters['Alamat']) ? $filters['Alamat'] : "" }}" name="Alamat"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <span class="input-group-addon">Email</span>
+                            <input type="text" class="form-control" value="{{ isset($filters['email']) ? $filters['email'] : "" }}" name="email"/>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
                 </form>
                 <br><br><br>
                 <table id="" class="table table-striped table-bordered ftd">
@@ -82,6 +115,7 @@
                         @endif
                     </tbody>
                 </table>
+                {{ $dataUser->links() }}
             </div>
         </div>
     </div>
