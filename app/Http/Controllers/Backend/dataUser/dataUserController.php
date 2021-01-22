@@ -52,10 +52,11 @@ class dataUserController extends Controller
         return view('backend.Users.editUsers', compact('EditdataUser'));
     }
 
-    public function updateUser(UpdateDataUsersRequest $request, $id) 
+    public function updateUser(UpdateDataUsersRequest $request, $id)
     
     {    
         $editUser = $this->dataUser->updateUser($request, $id);
+        
         if($editUser['status']) {
             return redirect()->route('table-dataUsers')->with(['sukses' => $editUser
             ['message']]);

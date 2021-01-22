@@ -7,28 +7,28 @@ use Illuminate\Http\Request;
 
 class dataUserRepository
 {   
-
-    public function getAllUser($filters = [], $paginate = 0){
+    //index
+    public function getAllUser($filters = []){
         
         $data = dataUsers::with([]);
 
-        if($filters['nama']){
+        if(isset($filters['nama'])){
             $data  = $data->where('nama','like','%' . $filters['nama'] . '%');
         }
 
-        if($filters['phone']){
+        if(isset($filters['phone'])){
             $data  = $data->where('phone','like','%' . $filters['phone'] . '%');
         }
 
-        if($filters['umur']){
+        if(isset($filters['umur'])){
             $data  = $data->where('umur','like','%' . $filters['umur'] . '%');
         }
 
-        if($filters['alamat']){
+        if(isset($filters['alamat'])){
             $data  = $data->where('alamat','like','%' . $filters['alamat'] . '%');
         }
 
-        if($filters['email']){
+        if(isset($filters['email'])){
             $data  = $data->where('email','like','%' . $filters['email'] . '%');
         }
 
@@ -36,9 +36,9 @@ class dataUserRepository
     }
 
     //create
-    public function storeUser(Request $request)
+    public function storeUser($request)
     {
-        $hasil = [
+        $result = [
             'status' => false,
             'message' => ''
         ];
@@ -53,13 +53,12 @@ class dataUserRepository
             $reload->alamat         = $request->alamat;
             $reload->email          = $request->email;
             $reload->save();
-            $hasil['status'] = true;
-            $hasil['message'] = 'Data Sukses Di Tambahkan';
-            return $hasil;
+            $result['status']        = true;
+            $result['message']       = 'Data Sukses Di Tambahkan';
+            return $result;
         } catch (\Exception $exception) {
-            
-            $hasil['message'] = 'Data error -> ' . $e->getCode()  . $exception->getMessage();
-            return $hasil;
+            $result['message'] = 'Input Data error Silahkan Cek Kembali, ' . $exception->getMessage();
+            return $result;
         }
     }
 
@@ -71,7 +70,7 @@ class dataUserRepository
 
     public function updateUser($request, $id)
     {
-        $hasil = [
+        $result = [
             'status' => false,
             'message' => ''
         ];
@@ -79,13 +78,13 @@ class dataUserRepository
         try {
 
             if(!$id){
-                $hasil['message'] = 'parameter id di perlukan';
-                return $hasil;
+                $result['message'] = 'parameter id di perlukan';
+                return $result;
             }
             $dataUser = $this->findDataUserById($id);
             if(!$dataUser){
-                $hasil['message'] = 'user tidak di temukan';
-                return $hasil;
+                $result['message'] = 'user tidak di temukan';
+                return $result;
             }
             $dataUser->nama             = $request->nama;
             $dataUser->country_code     = $request->country_code;
@@ -94,40 +93,40 @@ class dataUserRepository
             $dataUser->alamat           = $request->alamat;
             $dataUser->email            = $request->email;
             $dataUser->save();
-            $hasil['status']   = true;
-            $hasil['message']  = 'Data Sukses Di Update';
-            return $hasil;
+            $result['status']   = true;
+            $result['message']  = 'Data Sukses Di Update';
+            return $result;
         } catch (\Exception $exception) {
-            $hasil['message'] = 'Data error -> ' . $exception->getMessage();
-            return $hasil;
+            $result['message'] = 'Update Data error Silahkan Cek Kembali, ' . $exception->getMessage();
+            return $result;
         }
     }
 
     //delete
     public function destroyUser($id)
     {
-        $hasil = [
+        $result = [
             'status' => false,
             'message' => ''
         ];
         try {
             
             if(!$id){
-                $hasil['message'] = 'parameter id di perlukan';
-                return $hasil;
+                $result['message'] = 'parameter id di perlukan';
+                return $result;
             }
             $dataUser = $this->findDataUserById($id);
             if(!$dataUser){
-                $hasil['message'] = 'user tidak di temukan';
-                return $hasil;
+                $result['message'] = 'user tidak di temukan';
+                return $result;
             }
             $dataUser->delete();
-            $hasil['status'] = true;
-            $hasil['message'] = 'Data Sukses Di Delete';
-            return $hasil;
+            $result['status'] = true;
+            $result['message'] = 'Data Sukses Di Delete';
+            return $result;
         } catch (\Exception $exception) {
-            $hasil['message'] = 'Data error => ' . $exception->getMessage();
-            return $hasil;
+            $result['message'] = 'Delete Data error Silahkan Cek Kembali, ' . $exception->getMessage();
+            return $result;
         }
     }
 }
