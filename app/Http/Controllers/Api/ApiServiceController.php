@@ -21,14 +21,10 @@ class ApiServiceController extends Controller
 
         return  $this->dataUser->getAllUser($request);
 
-        // return response()->json($dataUser, 200);
     }
     
     public function storeUser(Request $request)
     {
-        // $StoreUser = $this->dataUser->storeUser($request);
-              
-        // return response()->json($StoreUser, 200);
 
         return $this->dataUser->storeUser($request);
     }
@@ -37,9 +33,6 @@ class ApiServiceController extends Controller
     public function updateUser($request, $id) 
     
     {    
-        // $editUser = $this->dataUser->updateUser($request, $id);
-        
-        // return response()->json($editUser);
 
         return $this->dataUser->UpdateUser($request,$id);
     }
